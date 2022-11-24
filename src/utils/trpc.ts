@@ -33,6 +33,9 @@ export const trpc = createTRPCNext<AppRouter>({
       queryClientConfig: {
         defaultOptions: {
           queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchInterval: 5 * 10 * 1000,  // 5 minutes
             onError: (error) => {
               console.log("useQueryClient DEFAULT: error ", error);
               window.alert("useQueryClient QUERY DEFAULT: error creating task");

@@ -5,21 +5,30 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./Main.css";
 import "../styles/globals.css";
 import { trpc } from "../utils/trpc";
+import NavBar from "./components/NavBar";
+import MobileFooter from "./components/MobileFooter";
+import { RouteGuard } from "./components/RouteGuard";
 
 
-import { useQueryClient } from "@tanstack/react-query";
-
-
-const MyApp: AppType<{ session: Session | null }> = ({
+const MyApp: AppType<{ session: Session | null, auth: boolean }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const queryClient = useQueryClient();
+
+  const { auth } = pageProps
 
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
+    <SessionProvider session={session} refetchOnWindowFocus={false}>
+      <NavBar />
+      {auth ? (
+        <RouteGuard>
+          <Component {...pageProps} />
+        </RouteGuard>
+      ) : (
+        <Component {...pageProps} />  
+      )}
       <ReactQueryDevtools />
+      <MobileFooter />
     </SessionProvider>
   );
 };

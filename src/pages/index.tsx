@@ -1,28 +1,25 @@
-import React from 'react'
-import NavBar from './components/NavBar'
-import TaskForm from './components/TaskForm'
-import MobileFooter from './components/MobileFooter'
+import React from "react";
+import NavBar from "./components/NavBar";
+import TaskForm from "./components/TaskForm";
+import MobileFooter from "./components/MobileFooter";
+import { NextPage } from "next";
 
-import { type NextPage } from "next";
-import { trpc } from "../utils/trpc";
-import { RouteGuard } from "./components/RouteGuard";
 
 const Home: NextPage = () => {
-  const utils = trpc.useContext();
-  const [name, setName] = React.useState<string>("");
-
-
   return (
-    <RouteGuard>
-      <div className='container'>
-        <NavBar />
-        <main>
-          <TaskForm />
-        </main>
-        <MobileFooter />
-      </div>
-    </RouteGuard>
+    <div className="container">
+      <main>
+        <TaskForm />
+      </main>
+    </div>
   );
-}
+};
+
+// Home.auth = true;
+export const getStaticProps = async () => {
+  return {
+    props: { auth: true },
+  };
+};
 
 export default Home;

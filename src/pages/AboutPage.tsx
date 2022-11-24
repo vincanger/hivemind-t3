@@ -4,7 +4,6 @@ import NavBar from './components/NavBar';
 const AboutPage = () => {
   return (
     <div className='container'>
-      <NavBar />
       <main>
         <span >🐢🐢🐢🐢🐢🐢🐢</span>
         <div className='buttons'>

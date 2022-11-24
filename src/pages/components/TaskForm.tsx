@@ -1,5 +1,3 @@
-import { TRPCClientError } from "@trpc/client";
-import { TRPCError } from "@trpc/server";
 import React, { FormEvent } from "react";
 import { CgInfo } from "react-icons/cg";
 // import Tooltip from 'react-simple-tooltip';
@@ -15,11 +13,8 @@ const TaskForm = () => {
   const utils = trpc.useContext();
 
   const { mutateAsync: newTask, isLoading, isError } = trpc.task.newTask.useMutation({
-    onMutate: (newData) => {
-      console.log("onMutate", newData);
-    },
     onSuccess: () => {
-      utils.example.invalidate();
+      utils.task.invalidate();
     },
   });
 
