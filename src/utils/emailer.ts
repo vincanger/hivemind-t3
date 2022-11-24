@@ -31,9 +31,16 @@ export async function sendEmail(task: Task) {
     html: `${task.message}`,
   });
 
+  if (task.deadline?.length) {
+    await markAsCompleted(task);
+  }
+
+  const previewUrl = nodemailer.getTestMessageUrl(info);
+
   console.log(
-    `${task.name} email sent! URL: ${nodemailer.getTestMessageUrl(info)}`
+    `${task.name} email sent! URL: ${previewUrl}`
   );
+  return previewUrl;
 }
 
 async function markAsCompleted(task: Task) {

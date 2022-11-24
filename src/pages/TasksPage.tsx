@@ -15,7 +15,10 @@ const TasksPage = () => {
     isError: completedError,
   } = trpc.task.getTasksByStatus.useQuery("completed");
 
-  // TODO: add pagination and sorting by status, recurring, etc, instead of two lists
+  React.useEffect(() => {
+    console.log("pendingTasks", pendingTasks);
+    console.log("completedTasks", completedTasks);
+  }, [pendingTasks, completedTasks]);
 
   return (
     <div className="container">
@@ -64,6 +67,26 @@ const TasksPage = () => {
               </ol>
             </div>
           )}
+        </div>
+        <div>
+          <h2>CRON JOB EMAIL previews from Nodemailer</h2>
+          <ul>
+            {pendingTasks && completedTasks && 
+              pendingTasks.concat(completedTasks).map((task, idx) => {
+                if (task.emailUrl) {
+                  return (
+                    <>
+                      <li key={task.id}>
+                        <code>{task.name}</code>:
+                        <a target="_blank" href={task.emailUrl}>
+                          nodemailer email preview
+                        </a>
+                      </li>
+                    </>
+                  );
+                }
+              })}
+          </ul>
         </div>
       </main>
     </div>

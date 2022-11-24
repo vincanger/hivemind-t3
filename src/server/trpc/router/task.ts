@@ -15,12 +15,6 @@ export const taskRouter = router({
         orderBy: {
           id: "asc",
         },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          message: true,
-        },
       });
     }),
   newTask: publicProcedure
@@ -35,9 +29,9 @@ export const taskRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       // try {
-        return await ctx.prisma.task.create({
-          data: input,
-        });
+      return await ctx.prisma.task.create({
+        data: input,
+      });
       // } catch (error) {
       //   if (error instanceof PrismaClientKnownRequestError) {
       //     throw new TRPCError({

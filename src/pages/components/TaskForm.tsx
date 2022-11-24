@@ -12,10 +12,11 @@ const TaskForm = () => {
   const [recurring, setRecurring] = React.useState(false);
   const utils = trpc.useContext();
 
+
   const { mutateAsync: newTask, isLoading, isError } = trpc.task.newTask.useMutation({
     onSuccess: () => {
       utils.task.invalidate();
-    },
+    }
   });
 
   React.useEffect(() => {

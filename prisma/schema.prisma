@@ -27,6 +27,7 @@ model Task {
     email       String
     deadline    String
     recurring   Int[]
+    emailUrl    String?  
 }
 
 // Necessary for Next auth
