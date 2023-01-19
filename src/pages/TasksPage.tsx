@@ -45,11 +45,8 @@ const TasksPage = () => {
               <h2>Completed Tasks</h2>
               <ol>
                 {completedTasks.map((task) => (
-                  <div>
-                    <li
-                      key={task.id}
-                      style={{ textDecoration: "line-through" }}
-                    >
+                  <div key={task.id}>
+                    <li style={{ textDecoration: "line-through" }}>
                       {task.name}
                     </li>
                     <div>{task.email}</div>
