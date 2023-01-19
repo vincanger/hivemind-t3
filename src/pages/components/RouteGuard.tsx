@@ -13,3 +13,5 @@ export const RouteGuard = ({ children }: { children: ReactElement }) => {
 
   return <>{children}</>;
 };
+
+export default RouteGuard;
