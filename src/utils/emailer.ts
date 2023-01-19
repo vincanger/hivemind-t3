@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { prisma } from "../server/db/client";
-import { Task } from "../types/sharedTypes";
+import type { Task } from "../types/sharedTypes";
 
 export async function sendEmail(task: Task) {
   const testAccount = await nodemailer.createTestAccount();

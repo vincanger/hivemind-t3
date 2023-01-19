@@ -13,7 +13,7 @@ const Logout = () => {
     if (status === "unauthenticated") {
       router.push("/");
     }
-  }, [status]);
+  }, [status, router]);
 
   return <div>Logging out...</div>;
 }

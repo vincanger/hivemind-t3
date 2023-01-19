@@ -1,7 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { sendEmail } from "../../../utils/emailer";
 import { prisma } from "../../../server/db/client";
-import { Task } from "../../../types/sharedTypes";
+import type { Task } from "../../../types/sharedTypes";
 
 
 const emailer = async (req: NextApiRequest, res: NextApiResponse) => {

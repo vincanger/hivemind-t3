@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image"
 import { CgHome, CgBee, CgNotes } from "react-icons/cg";
 
 const NavBar = () => {
   return (
     <nav className="nav">
       <div className="logo">
-        <img src="waspLogo.png" alt="wasp" />
+        <Image src="waspLogo.png" alt="wasp" />
         <span style={{ fontWeight: "600", margin: "0 0.5rem" }}>HiveMind</span>
         <span style={{ fontSize: "0.8rem", fontStyle: "italic" }}>
           A Reminder App 

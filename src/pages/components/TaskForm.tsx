@@ -1,4 +1,5 @@
-import { FormEvent, useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect,  } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import { trpc } from "../../utils/trpc";
 
 const daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"];
@@ -10,7 +11,7 @@ const TaskForm = () => {
   const utils = trpc.useContext();
 
 
-  const { mutateAsync: newTask, isLoading, isError } = trpc.task.newTask.useMutation({
+  const { mutateAsync: newTask } = trpc.task.newTask.useMutation({
     onSuccess: () => {
       utils.task.invalidate();
     }

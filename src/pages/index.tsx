@@ -1,6 +1,6 @@
 import React from "react";
 import TaskForm from "./components/TaskForm";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 
 
 const Home: NextPage = () => {

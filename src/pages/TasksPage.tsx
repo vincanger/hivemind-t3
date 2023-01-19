@@ -65,7 +65,7 @@ const TasksPage = () => {
             <ul>
               {pendingTasks &&
                 completedTasks &&
-                pendingTasks.concat(completedTasks).map((task, idx) => {
+                pendingTasks.concat(completedTasks).map((task) => {
                   if (task.emailUrl) {
                     return (
                       <li key={task.id}>
