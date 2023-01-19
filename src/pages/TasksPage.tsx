@@ -44,7 +44,7 @@ const TasksPage = () => {
             <div className="tasklist">
               <h2>Completed Tasks</h2>
               <ol>
-                {completedTasks.map((task, idx) => (
+                {completedTasks.map((task) => (
                   <div>
                     <li
                       key={task.id}
@@ -73,7 +73,11 @@ const TasksPage = () => {
                     return (
                       <li key={task.id}>
                         <code>{task.name}</code>:
-                        <a target="_blank" href={task.emailUrl}>
+                        <a
+                          target="_blank"
+                          rel="noreferrer"
+                          href={task.emailUrl}
+                        >
                           nodemailer email preview
                         </a>
                       </li>

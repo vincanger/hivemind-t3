@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { signIn, getProviders, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const { status } = useSession();
-  const [providers, setProviders] = React.useState<any>();
+  const [providers, setProviders] = useState<any>();
   const router = useRouter();
 
   React.useEffect(() => {
