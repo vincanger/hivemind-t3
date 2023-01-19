@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { trpc } from "../utils/trpc";
-import { type NextPage } from "next";
 
 const TasksPage = () => {
   const {
@@ -15,11 +14,6 @@ const TasksPage = () => {
     isError: completedError,
   } = trpc.task.getTasksByStatus.useQuery("completed");
 
-  React.useEffect(() => {
-    console.log("pendingTasks", pendingTasks);
-    console.log("completedTasks", completedTasks);
-  }, [pendingTasks, completedTasks]);
-
   return (
     <div className="container">
       <main>
@@ -31,7 +25,7 @@ const TasksPage = () => {
           {pendingError && <div>Error: {pendingError}</div>}
           {completedError && <div>Error: {completedError}</div>}
           {pendingTasks && (
-            <div>
+            <div className="tasklist">
               <h2>Pending Tasks</h2>
               <ol>
                 {pendingTasks.map((task) => (
@@ -47,7 +41,7 @@ const TasksPage = () => {
             </div>
           )}
           {completedTasks && (
-            <div style={{ opacity: "0.6" }}>
+            <div className="tasklist">
               <h2>Completed Tasks</h2>
               <ol>
                 {completedTasks.map((task, idx) => (
@@ -68,25 +62,26 @@ const TasksPage = () => {
             </div>
           )}
         </div>
-        <div>
-          <h2>CRON JOB EMAIL previews from Nodemailer</h2>
-          <ul>
-            {pendingTasks && completedTasks && 
-              pendingTasks.concat(completedTasks).map((task, idx) => {
-                if (task.emailUrl) {
-                  return (
-                    <>
+        <div className="tasks">
+          <div className="tasklist">
+            <h2>CRON JOB EMAIL previews from Nodemailer</h2>
+            <ul>
+              {pendingTasks &&
+                completedTasks &&
+                pendingTasks.concat(completedTasks).map((task, idx) => {
+                  if (task.emailUrl) {
+                    return (
                       <li key={task.id}>
                         <code>{task.name}</code>:
                         <a target="_blank" href={task.emailUrl}>
                           nodemailer email preview
                         </a>
                       </li>
-                    </>
-                  );
-                }
-              })}
-          </ul>
+                    );
+                  }
+                })}
+            </ul>
+          </div>
         </div>
       </main>
     </div>
@@ -100,4 +95,3 @@ export const getStaticProps = async () => {
 };
 
 export default TasksPage;
-

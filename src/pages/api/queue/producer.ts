@@ -1,14 +1,33 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-
 import { prisma } from "../../../server/db/client";
+import { Receiver } from "@upstash/qstash";
 
-// `https://qstash.upstash.io/v1/publish/${process.env.VERCEL_URL}/api/queue/emailer`;
-const URL = "https://a23f-176-199-209-57.eu.ngrok.io"; //process.env.VERCEL_URL || 
+const receiver = new Receiver({
+  currentSigningKey: "sig_4rRkjgcP1Vr7emGADCXLCKecm58f",
+  nextSigningKey: "sig_6od8qKjRdX66wZnHKcEMMEgW1Rcv",
+});
+
+const URL = process.env.VERCEL_URL || "http://localhost:3000";
 
 const QSTASH_URL = `https://qstash.upstash.io/v1/publish/${URL}/api/queue/emailer`;
 
 const producer = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("prdocuer hit / req.body: ", req.body);
+  console.log("\n\n producer hit by Qstash service \n\n");
+
+  // get headers from Qstash
+  const { headers } = req;
+  // parse the header's 'upstash-signature' value
+  const signature = headers["upstash-signature"];
+  // check if the signature is valid using Qstash SDK
+  let isValid = false;
+  if (typeof signature === "string") {
+    isValid = await receiver.verify({
+      signature: signature,
+      body: req.body,
+    });
+  }
+
+  console.log("\n isValid: ", isValid, "\n");
 
   const tasks = await prisma.task.findMany({
     where: {
@@ -22,13 +41,12 @@ const producer = async (req: NextApiRequest, res: NextApiResponse) => {
       email: true,
       message: true,
       recurring: true,
-      // emailUrl: true,
     },
   });
 
   const deadlinedTasks = await prisma.task.findMany({
     where: {
-      deadline: new Date().toJSON().split('T')[0],
+      deadline: new Date().toJSON().split("T")[0],
       status: "pending",
     },
     select: {
@@ -37,7 +55,6 @@ const producer = async (req: NextApiRequest, res: NextApiResponse) => {
       email: true,
       message: true,
       deadline: true,
-      // emailUrl: true,
     },
   });
 
@@ -48,7 +65,6 @@ const producer = async (req: NextApiRequest, res: NextApiResponse) => {
     allTasks.map(async (task) => {
       // make the console.log message yellow
       console.log("\x1b[33m%s\x1b[0m", "task: ", task);
-
 
       const result = await fetch(QSTASH_URL, {
         method: "POST",

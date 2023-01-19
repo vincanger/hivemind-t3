@@ -1,11 +1,9 @@
-import React, { FormEvent, ReactElement, ReactPropTypes } from "react";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import { trpc } from "../../utils/trpc";
+import React, { ReactElement } from "react";
+import { useSession } from "next-auth/react";
+
 
 export const RouteGuard = ({ children }: { children: ReactElement }) => {
-  const router = useRouter();
-  const { data: session, status } = useSession({
+  const { status } = useSession({
     required: true,
   });
 

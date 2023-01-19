@@ -1,12 +1,16 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { sendEmail } from "../../../utils/emailer";
 import { prisma } from "../../../server/db/client";
+import { Task } from "../../../types/sharedTypes";
+
 
 const emailer = async (req: NextApiRequest, res: NextApiResponse) => {
-  const task = JSON.parse(req.body);
+  const task = JSON.parse(req.body) as Task;
+  console.log("\n task parsed via Qstash: ", task, "\n");
+  
   const sentEmail = await sendEmail(task);
-  console.log("sentEmail: ", sentEmail);
-  if (typeof sentEmail === "string") {
+
+  if (sentEmail) {
     await prisma.task.update({
       where: {
         id: task.id,

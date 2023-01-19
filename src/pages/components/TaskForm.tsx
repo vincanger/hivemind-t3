@@ -1,7 +1,4 @@
-import React, { FormEvent } from "react";
-import { CgInfo } from "react-icons/cg";
-// import Tooltip from 'react-simple-tooltip';
-// import createTask from '@wasp/actions/createTask';
+import { FormEvent, useState, useEffect, ChangeEvent } from "react";
 import { trpc } from "../../utils/trpc";
 
 const daysOfWeek = ["Su", "M", "T", "W", "Th", "F", "Sa"];
@@ -9,7 +6,7 @@ let days: any;
 let deadline: any;
 
 const TaskForm = () => {
-  const [recurring, setRecurring] = React.useState(false);
+  const [recurring, setRecurring] =useState(false);
   const utils = trpc.useContext();
 
 
@@ -19,7 +16,7 @@ const TaskForm = () => {
     }
   });
 
-  React.useEffect(() => {
+useEffect(() => {
     days = daysOfWeek.map((day) => {
       return document.getElementById(day);
     });
@@ -29,7 +26,7 @@ const TaskForm = () => {
     
   }, []);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const target = event.target as typeof event.target & {
@@ -69,7 +66,7 @@ const TaskForm = () => {
     }
   };
 
-  const isRecurring = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const isRecurring = (event:ChangeEvent<HTMLInputElement>) => {
     console.log("deadline", deadline);
     if (event.target.checked) {
       setRecurring(true);

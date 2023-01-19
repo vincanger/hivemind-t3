@@ -1,15 +1,6 @@
 import nodemailer from "nodemailer";
 import { prisma } from "../server/db/client";
-
-type Task = {
-  id: number;
-  name: string;
-  status: string;
-  message: string;
-  email: string;
-  deadline: string | null;
-  recurring: number[] | null;
-};
+import { Task } from "../types/sharedTypes";
 
 export async function sendEmail(task: Task) {
   const testAccount = await nodemailer.createTestAccount();
@@ -37,9 +28,19 @@ export async function sendEmail(task: Task) {
 
   const previewUrl = nodemailer.getTestMessageUrl(info);
 
-  console.log(
-    `${task.name} email sent! URL: ${previewUrl}`
-  );
+  console.log(`${task.name} email sent! URL: ${previewUrl}`);
+
+  if (previewUrl) {
+    await prisma.task.update({
+      where: {
+        id: task.id,
+      },
+      data: {
+        emailUrl: previewUrl,
+      },
+    });
+  }
+
   return previewUrl;
 }
 

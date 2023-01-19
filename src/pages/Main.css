@@ -7,8 +7,14 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+a {
+  color: #61dafb;
+  text-decoration: underline;
 }
 
 .container {
@@ -28,6 +34,11 @@ main {
   align-items: center;
 }
 
+main li {
+  list-style: bullet;
+  margin: 0.5rem 0;
+}
+
 .info {
   margin-bottom: 0.8rem;
   line-height: 1.15;
@@ -41,17 +52,31 @@ main {
   justify-content: center;
   width: 100%;
   max-width: 500px;
+  padding-top: 1rem;
+}
+
+.tasks h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-bottom: 1.5rem;
+}
+
+.tasks a {
+  /* color: blue; */
+  padding-left: 0.5rem;
+  text-decoration: underline;
+}
+
+.tasks .tasklist {
+  padding: 2rem;
+  margin: 0.5rem;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 main p {
   font-size: 1.2rem;
-}
-
-h1,
-h2,
-h3 {
-  padding: 0.25rem;
-  margin: 0.25rem;
 }
 
 .nav {
@@ -188,10 +213,9 @@ code {
   border-radius: 5px;
   padding: 0.2rem;
   background: #efefef;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
-    monospace;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
 }
-
 
 .tooltip {
   display: none;
@@ -201,7 +225,7 @@ code {
   z-index: 1;
   display: inline-block;
   border-bottom: 1px dotted black;
-  background-color: #212121; 
+  background-color: #212121;
   color: #fff;
 }
 
@@ -212,7 +236,6 @@ code {
 #mobile-footer {
   display: none;
 }
-
 
 @media (max-width: 1000px) {
   .nav {
@@ -247,5 +270,3 @@ code {
     display: none;
   }
 }
-
-
