@@ -6,7 +6,7 @@ const NavBar = () => {
   return (
     <nav className="nav">
       <div className="logo">
-        <Image src="waspLogo.png" alt="wasp" />
+        <Image src="/waspLogo.png" width={40} height={40} alt="wasp" />
         <span style={{ fontWeight: "600", margin: "0 0.5rem" }}>HiveMind</span>
         <span style={{ fontSize: "0.8rem", fontStyle: "italic" }}>
           A Reminder App 
