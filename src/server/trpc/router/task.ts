@@ -6,7 +6,9 @@ export const taskRouter = router({
     return ctx.prisma.task.findMany();
   }),
   getTasksByStatus: publicProcedure
-    .input(z.string())
+    .input(
+      z.enum(['pending', 'completed'])
+      )
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.task.findMany({
         where: {
@@ -16,6 +18,7 @@ export const taskRouter = router({
           id: "asc",
         },
       });
+
     }),
   newTask: publicProcedure
     .input(
